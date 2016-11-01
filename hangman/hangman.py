@@ -161,5 +161,6 @@ def user_input_guess(game):
 
 
 if __name__ == '__main__':
+    pass
     # game = start_new_game(WORD_LIST)
     # user_input_guess(game)

@@ -58,8 +58,20 @@ class TestHangman(unittest.TestCase):
         self.assertEqual(_check_game_over('cat', '**t', 4), False)
  
 
-    def test_start_game(self):
-        word_list = []
+    def test_start_game_no_default_value(self):
+        word_list = ['happy']
+        expected = {
+            'answer_word' : 'happy',
+            'masked_word' : '*****',
+            'previous_guesses' : '',
+            'remaining_misses' : 5
+        }
+
+        game = start_new_game(word_list)
+        self.assertEqual(game, expected)
+
+    def test_start_game_default_value(self):
+        word_list = ['happy', 'party']
         expected = {
             'answer_word' : 'santiago',
             'masked_word' : '********',
