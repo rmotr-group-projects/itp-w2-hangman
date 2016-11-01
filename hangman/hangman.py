@@ -17,7 +17,7 @@ def _get_random_word(word_list):
     Returns a random word from the word_list to use as the answer word.
     :param word_list: The list of possible answer words
     """
-    idx = random.randint(0, len(word_list))
+    idx = random.randint(0, len(word_list) - 1)
     return word_list[idx]
 
 
@@ -90,19 +90,19 @@ def _check_game_over(answer_word, masked_word, remaining_misses):
 
 
 # Public interface
-def start_new_game(answer_word=None):
+def start_new_game(word_list, answer_word=None):
     """
     Creates and returns a new game configuration.
     :param answer_word: Optional manually chosen answer word for game with
                         default value of None if nothing is provided.
-    This returns a collection that stores 4 pieces of game information:
+    This returns a dictionary that stores 4 pieces of game information:
     answer_word - The answer word that is the solution to the game
     masked_word - The answer word masked with '*' characters
     previous_guesses - The previous valid letter guesses the user has inputted
     remaining_misses - how many misses the user has left. Start with 5.
     """
     if answer_word == None:
-        answer_word = _get_random_word(WORD_LIST)
+        answer_word = _get_random_word(word_list)
     masked_word = _mask_word(answer_word)
     print(answer_word, masked_word)
     print("Welcome to Hangman!")
@@ -119,16 +119,16 @@ def start_new_game(answer_word=None):
 def guess_letter(game, letter):
     """
     This function receives a valid guess and processes it.
-    If it is a correct guess, it updates the masked_word in the collection
+    If it is a correct guess, it updates the masked_word in the dictionary
     by replacing the '*' characters with letters that have been correctly
     guessed. 
     If it is an incorrect guess, update remaining_misses in the game so it has 
     one less.
     Finally, update the previous_guesses in the game to reflect the letter that
     has been guessed.
-    You are only updating values in your collection so no return required for
+    You are only updating values in your dictionary so no return required for
     this function.
-    :param game: The collection storing current game information
+    :param game: The dictionary storing current game information
     :param letter: The letter that is being guessed
     """
     game['previous_guesses'] += letter
@@ -148,7 +148,7 @@ def user_input_guess(game):
     """
     Repeats user input guesses until game is over. If guess is invalid,
     repeat input until it is valid. Once guess is valid, process the guess.
-    :param game: The collection storing current game information
+    :param game: The dictionary storing current game information
     """
     while not _check_game_over(game['answer_word'], game['masked_word'],
             game['remaining_misses']):
@@ -160,8 +160,6 @@ def user_input_guess(game):
         print("You have " + str(game['remaining_misses'])+ " misses remaining")
 
 
-game = start_new_game()
-user_input_guess(game)
-
-
-
+if __name__ == '__main__':
+    # game = start_new_game(WORD_LIST)
+    # user_input_guess(game)
