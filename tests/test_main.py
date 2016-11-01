@@ -1,6 +1,8 @@
 import unittest
 
-from hangman import *
+from hangman.hangman import (_get_random_word, _mask_word, _guess_is_valid,
+                             _check_lose, _check_win, _check_game_over,
+                             _check_game_over, start_new_game, guess_letter)
 
 
 class TestHangman(unittest.TestCase):
@@ -23,6 +25,9 @@ class TestHangman(unittest.TestCase):
 
     def test_guess_invalid_too_long(self):
         self.assertEqual(_guess_is_valid('sf', 'abcd'), False)
+
+    def test_guess_invalid_empty(self):
+        self.assertEqual(_guess_is_valid('', 'abcd'), False)
 
     def test_check_lose_true(self):
         self.assertEqual(_check_lose(0), True)
@@ -100,22 +105,36 @@ class TestHangman(unittest.TestCase):
         game = start_new_game(word_list, 'cat')
 
         guess_letter(game, 'c')
-        self.assertEqual(_check_game_over(game['answer_word'],
-                                          game['masked_word'], game['remaining_misses']), False)
+        self.assertEqual(
+            _check_game_over(game['answer_word'],
+                             game['masked_word'],
+                             game['remaining_misses']),
+            False)
 
         guess_letter(game, 'a')
-        self.assertEqual(_check_game_over(game['answer_word'],
-                                          game['masked_word'], game['remaining_misses']), False)
+        self.assertEqual(
+            _check_game_over(game['answer_word'],
+                             game['masked_word'],
+                             game['remaining_misses']),
+            False)
 
         guess_letter(game, 'b')
-        self.assertEqual(_check_game_over(game['answer_word'],
-                                          game['masked_word'], game['remaining_misses']), False)
+        self.assertEqual(
+            _check_game_over(game['answer_word'],
+                             game['masked_word'],
+                             game['remaining_misses']),
+            False)
 
         guess_letter(game, 't')
-        self.assertEqual(_check_game_over(game['answer_word'],
-                                          game['masked_word'], game['remaining_misses']), True)
-        self.assertEqual(_check_win(game['answer_word'],
-                                    game['masked_word']), True)
+        self.assertEqual(
+            _check_game_over(game['answer_word'],
+                             game['masked_word'],
+                             game['remaining_misses']),
+            True)
+        self.assertEqual(
+            _check_win(game['answer_word'],
+                       game['masked_word']),
+            True)
 
         expected = {
             'answer_word': 'cat',
@@ -130,28 +149,46 @@ class TestHangman(unittest.TestCase):
         game = start_new_game(word_list, 'house')
 
         guess_letter(game, 'a')
-        self.assertEqual(_check_game_over(game['answer_word'],
-                                          game['masked_word'], game['remaining_misses']), False)
+        self.assertEqual(
+            _check_game_over(game['answer_word'],
+                             game['masked_word'],
+                             game['remaining_misses']),
+            False)
 
         guess_letter(game, 'b')
-        self.assertEqual(_check_game_over(game['answer_word'],
-                                          game['masked_word'], game['remaining_misses']), False)
+        self.assertEqual(
+            _check_game_over(game['answer_word'],
+                             game['masked_word'],
+                             game['remaining_misses']),
+            False)
 
         guess_letter(game, 'c')
-        self.assertEqual(_check_game_over(game['answer_word'],
-                                          game['masked_word'], game['remaining_misses']), False)
+        self.assertEqual(
+            _check_game_over(game['answer_word'],
+                             game['masked_word'],
+                             game['remaining_misses']),
+            False)
 
         guess_letter(game, 'd')
-        self.assertEqual(_check_game_over(game['answer_word'],
-                                          game['masked_word'], game['remaining_misses']), False)
+        self.assertEqual(
+            _check_game_over(game['answer_word'],
+                             game['masked_word'],
+                             game['remaining_misses']),
+            False)
 
         guess_letter(game, 'e')
-        self.assertEqual(_check_game_over(game['answer_word'],
-                                          game['masked_word'], game['remaining_misses']), False)
+        self.assertEqual(
+            _check_game_over(game['answer_word'],
+                             game['masked_word'],
+                             game['remaining_misses']),
+            False)
 
         guess_letter(game, 'f')
-        self.assertEqual(_check_game_over(game['answer_word'],
-                                          game['masked_word'], game['remaining_misses']), True)
+        self.assertEqual(
+            _check_game_over(game['answer_word'],
+                             game['masked_word'],
+                             game['remaining_misses']),
+            True)
         self.assertEqual(_check_lose(game['remaining_misses']), True)
 
         expected = {
