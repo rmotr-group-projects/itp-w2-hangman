@@ -1,7 +1,7 @@
 import random
 
 
-WORD_LIST = ['apple', 'banana', 'carrot', 'dinosaur', 'python', 'project', 
+WORD_LIST = ['apple', 'banana', 'carrot', 'dinosaur', 'python', 'project',
              'fire', 'goat', 'shrimp', 'lobster', 'rabbit', 'house']
 
 
@@ -23,7 +23,7 @@ def _get_random_word(word_list):
 
 def _mask_word(word):
     """
-    Takes the answer word and returns a string of '*' characters of the 
+    Takes the answer word and returns a string of '*' characters of the
     same length to show the user the masked word.
     :param word: The answer word for the current game
     Example: word - 'cat'     masked word - '***'
@@ -33,13 +33,13 @@ def _mask_word(word):
 
 def _guess_is_valid(guessed_letter, previous_guesses):
     """
-    Checks if the letter guessed is one character long, has not already been 
-    guessed, and verifies the character guessed is a letter in the alphabet. 
+    Checks if the letter guessed is one character long, has not already been
+    guessed, and verifies the character guessed is a letter in the alphabet.
     :param guessed_letter: The letter the user guesses
     :param previous_guesses: A string of all the letters previously guessed
     Returns True if given guess is valid, False otherwise.
     """
-    if (len(guessed_letter) == 1 and guessed_letter.isalpha() and 
+    if (len(guessed_letter) == 1 and guessed_letter.isalpha() and
             guessed_letter not in previous_guesses):
         return True
     print("Invalid guess. Try again.")
@@ -61,7 +61,7 @@ def _check_win(answer_word, masked_word):
     """
     Returns True if answer word matches the masked word and False otherwise.
     This works because the masked word is updated each time a correct letter
-    is guessed to replace that '*' character with the correct letter. If the 
+    is guessed to replace that '*' character with the correct letter. If the
     user has one, matched word and answer word will be the same.
     :param answer_word: The answer word for the current game
     :param masked_word: The answer word masked with '*' characters for letters
@@ -86,7 +86,6 @@ def _check_game_over(answer_word, masked_word, remaining_misses):
         print("Game Over.")
         return True
     return False
-
 
 
 # Public interface
@@ -121,8 +120,8 @@ def guess_letter(game, letter):
     This function receives a valid guess and processes it.
     If it is a correct guess, it updates the masked_word in the dictionary
     by replacing the '*' characters with letters that have been correctly
-    guessed. 
-    If it is an incorrect guess, update remaining_misses in the game so it has 
+    guessed.
+    If it is an incorrect guess, update remaining_misses in the game so it has
     one less.
     Finally, update the previous_guesses in the game to reflect the letter that
     has been guessed.
@@ -151,16 +150,16 @@ def user_input_guess(game):
     :param game: The dictionary storing current game information
     """
     while not _check_game_over(game['answer_word'], game['masked_word'],
-            game['remaining_misses']):
+                               game['remaining_misses']):
         guess = _input("Guess a letter: ")
         if not _guess_is_valid(guess, game['previous_guesses']):
             continue
         guess_letter(game, guess)
-        print("This is the word to guess: " + game['masked_word'])
-        print("You have " + str(game['remaining_misses'])+ " misses remaining")
+        print("This is the word to guess: %s" % game['masked_word'])
+        print("You have %s misses remaining" % game['remaining_misses'])
 
 
 if __name__ == '__main__':
     pass
-    # game = start_new_game(WORD_LIST)
-    # user_input_guess(game)
+    game = start_new_game(WORD_LIST)
+    user_input_guess(game)
