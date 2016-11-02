@@ -17,7 +17,7 @@ def _get_random_word(word_list):
     Returns a random word from the word_list to use as the answer word.
     :param word_list: The list of possible answer words
     """
-    position = random.randint(0, len(word_list))
+    position = random.randint(0, len(word_list) - 1)
     return word_list[position]
 
 
@@ -53,6 +53,7 @@ def _check_lose(remaining_misses):
     :param remaining_misses: How many misses are left before user loses
     """
     if remaining_misses <= 0:
+        print("You lose")
         return True
     else:
         return False
@@ -69,6 +70,7 @@ def _check_win(answer_word, masked_word):
                         that haven't been guessed
     """
     if answer_word == masked_word:
+        print("You win!")
         return True
     else:
         return False
@@ -128,7 +130,6 @@ def guess_letter(game, letter):
     :param game: The dictionary storing current game information
     :param letter: The letter that is being guessed
     """
-                                                                                    #game = start_new_game(word_list = WORD_LIST, answer_word = None)
     no_match = True
     new_mask_str = ''
     if _guess_is_valid(letter, game['previous_guesses']):
