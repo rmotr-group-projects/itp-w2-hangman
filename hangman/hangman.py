@@ -2,7 +2,7 @@ import random
 import string
 
 
-WORD_LIST = ['apple', 'banana', 'carrot', 'dinosaur', 'python', 'project',
+WORD_LIST = ['santa', 'apple', 'banana', 'carrot', 'dinosaur', 'python', 'project',
              'fire', 'goat', 'shrimp', 'lobster', 'rabbit', 'house']
 
 
@@ -44,7 +44,7 @@ def _guess_is_valid(guessed_letter, previous_guesses):
     :param previous_guesses: A string of all the letters previously guessed
     Returns True if given guess is valid, False otherwise.
     """
-    if len(guessed_letter) == 1 and guessed_letter not in previous_guesses and guessed_letter in string.lowercase[:]:
+    if len(guessed_letter) == 1 and guessed_letter not in previous_guesses and guessed_letter in string.ascii_lowercase[:]:
         return True
     else:
         return False
