@@ -135,7 +135,7 @@ def guess_letter(game, letter):
     """
     if letter in game['answer_word']:
         unmask = list(game['masked_word'])
-        letter_occur = [n for n in xrange(len(game['answer_word'])) if game['answer_word'].find(letter, n) == n]
+        letter_occur = [n for n in range(len(game['answer_word'])) if game['answer_word'].find(letter, n) == n]
         for i in range(len(game['answer_word'])):
             if i in letter_occur:
                 unmask[i] = game['answer_word'][i]
