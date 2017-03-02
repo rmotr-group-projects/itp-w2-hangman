@@ -17,7 +17,9 @@ def _get_random_word(word_list):
     Returns a random word from the word_list to use as the answer word.
     :param word_list: The list of possible answer words
     """
-    pass
+    index = random.randint(0, len(word_list)-1)
+    return word_list[index]
+
 
 
 def _mask_word(word):
@@ -27,8 +29,9 @@ def _mask_word(word):
     :param word: The answer word for the current game
     Example: word - 'cat'     masked word - '***'
     """
-    pass
-
+    word_length = len(word)
+    return '*'*word_length
+    
 
 def _guess_is_valid(guessed_letter, previous_guesses):
     """
@@ -38,7 +41,10 @@ def _guess_is_valid(guessed_letter, previous_guesses):
     :param previous_guesses: A string of all the letters previously guessed
     Returns True if given guess is valid, False otherwise.
     """
-    pass
+    #use .isalpha() instead of is instance bc we need to know it's a LETTEr, not just a string. See test with '1'
+    if len(guessed_letter) == 1 and guessed_letter not in previous_guesses and guessed_letter.isalpha():
+        return True
+    return False
 
 
 def _check_lose(remaining_misses):
@@ -46,7 +52,9 @@ def _check_lose(remaining_misses):
     Returns True if remaining guesses is equal to 0 and false otherwise.
     :param remaining_misses: How many misses are left before user loses
     """
-    pass
+    if remaining_misses == 0:
+        return True
+    return False
 
 
 def _check_win(answer_word, masked_word):
@@ -59,7 +67,9 @@ def _check_win(answer_word, masked_word):
     :param masked_word: The answer word masked with '*' characters for letters
                         that haven't been guessed
     """
-    pass
+    if answer_word == masked_word:
+        return True
+    return False
 
 
 def _check_game_over(answer_word, masked_word, remaining_misses):
@@ -71,7 +81,9 @@ def _check_game_over(answer_word, masked_word, remaining_misses):
                         that haven't been guessed
     :param remaining_misses: How many misses are left before user loses
     """
-    pass
+    if _check_win(answer_word, masked_word) or _check_lose(remaining_misses):
+        return True
+    return False
 
 
 # Public interface
@@ -86,7 +98,19 @@ def start_new_game(word_list, answer_word=None):
     previous_guesses - The previous valid letter guesses the user has inputted
     remaining_misses - how many misses the user has left. Start with 5.
     """
-    pass
+    if answer_word is None:
+        answer_word = _get_random_word(word_list)
+    masked_word = _mask_word(answer_word)
+    print(answer_word, masked_word)
+    print("~*~Let's play Hangman!~*~")
+    print("Word to guess: " + masked_word)
+    print("You have 5 misses remaining")
+    return {
+        'answer_word': answer_word,
+        'masked_word': masked_word,
+        'previous_guesses': '',
+        'remaining_misses': 5
+    }
 
 
 def guess_letter(game, letter):
@@ -104,7 +128,20 @@ def guess_letter(game, letter):
     :param game: The dictionary storing current game information
     :param letter: The letter that is being guessed
     """
-    pass
+    #keep track of previous guesses
+    game['previous_guesses'] += letter
+    #first check to see if the letter is in the word
+    if letter in game['answer_word']:
+        new_masked_str = "" #need this
+        for index in range(len(game['answer_word'])): #step through the length of the answer word
+            if letter == game['answer_word'][index]: #if the letter is at this index in the answer word
+                new_masked_str += letter #append to the new masked string
+            else:
+                new_masked_str += game['masked_word'][index] #else append the index to the masked_word
+        game['masked_word'] = new_masked_str
+    else:
+        game['remaining_misses'] -= 1 #at the end we have to decrease our misses
+
 
 
 def user_input_guess(game):
