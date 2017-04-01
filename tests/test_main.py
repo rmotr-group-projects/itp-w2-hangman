@@ -97,7 +97,9 @@ class TestHangman(unittest.TestCase):
         }
 
         game = start_new_game(word_list, 'santiago')
+        print game
         guess_letter(game, 'b')
+        print game
         self.assertEqual(game, expected)
 
     def test_win(self):

@@ -74,7 +74,7 @@ def _check_win(answer_word, masked_word):
     else:
         return False
 
-
+    for i
 def _check_game_over(answer_word, masked_word, remaining_misses):
     """
     Returns True if _check_win is True or _check_lose is True, and False
@@ -136,19 +136,17 @@ def guess_letter(game, letter):
     :param game: The dictionary storing current game information
     :param letter: The letter that is being guessed
     """
-    isCorrect = False
-    game['previous_guesses'] += letter
-    
-    for index, character in enumerate(game['answer_word'] ): # https://docs.python.org/2/library/functions.html#enumerate
-        if character == letter:
-            isCorrect = True
-            tempList = list(game['masked_word'])
-            tempList[index] = letter
-            game['masked_word'] = ''.join(tempList) # ['a','b','c'] ''.join -> abc, '-'.join -> a-b-c
-            
-    if isCorrect == False:
+    if _guess_is_valid(letter, game['previous_guesses']) == True and _check_lose(game['remaining_misses']) == False:
+        game['previous_guesse'].append(letter)
+        for i in game['answer_word']:
+            if i == letter:
+                tempList = list(game['answer_word'])
+                tempList.pop
+                tempList[i] = letter
+                game['masked_word'] = str.join(tempList)
+    else:
         game['remaining_misses'] -= 1
-        
+
 def user_input_guess(game):
     """
     Repeats user input guesses until game is over. If guess is invalid,
