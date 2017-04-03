@@ -130,7 +130,22 @@ def guess_letter(game, letter):
     :param game: The dictionary storing current game information
     :param letter: The letter that is being guessed
     """
-    
+    # if correct guess
+    if letter in game['answer_word']:
+        
+        # created list of indices where letter occurs
+        indices = [i for i, item in enumerate(game['answer_word']) if game['answer_word'][i] == letter]
+        # convert masked string to list so we can modify it
+        masked_str = list(game['masked_word'])
+        # go to every index in masked string and replace with letter
+        for index in indices:
+            masked_str[index] = letter
+        # make masked string single string again and reassign to masked_word
+        game['masked_word'] = ''.join(masked_str)
+    # if incorrect guess
+    else:
+        game['remaining_misses'] -= 1
+    game['previous_guesses'] += letter
 
 
 def user_input_guess(game):
