@@ -99,12 +99,26 @@ class TestHangman(unittest.TestCase):
         game = start_new_game(word_list, 'santiago')
         guess_letter(game, 'b')
         self.assertEqual(game, expected)
+        
+    def test_multiple_guess_letter(self):
+        word_list = []
 
+        game = start_new_game(word_list, 'cat')
+        self.assertEqual(game['masked_word'], '***')
+        
+        guess_letter(game, 'c')
+        self.assertEqual(game['masked_word'], 'c**')
+        
+        guess_letter(game, 'a')
+        self.assertEqual(game['masked_word'], 'ca*')
+        
     def test_win(self):
         word_list = []
         game = start_new_game(word_list, 'cat')
 
         guess_letter(game, 'c')
+        print("1 GAMMMMMMME 1: ")
+        print(game['masked_word'])
         self.assertEqual(
             _check_game_over(game['answer_word'],
                              game['masked_word'],
@@ -125,7 +139,11 @@ class TestHangman(unittest.TestCase):
                              game['remaining_misses']),
             False)
 
+        print("2 GAMMMMMMME 2: ")
+        print(game['masked_word'])
         guess_letter(game, 't')
+        print("3 GAMMMMMMME 3: ")
+        print(game['masked_word'])
         self.assertEqual(
             _check_game_over(game['answer_word'],
                              game['masked_word'],
