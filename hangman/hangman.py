@@ -43,7 +43,7 @@ def _guess_is_valid(guessed_letter, previous_guesses):
     """
     if len(guessed_letter) != 1:
       return False
-    elif guessed_letter in previous_guesses:
+    elif guessed_letter.lower() in previous_guesses:
       return False
     elif guessed_letter.lower() in ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']:
       return True
@@ -133,8 +133,8 @@ def guess_letter(game, letter):
     """
     working = ""
     if _guess_is_valid(letter, game["previous_guesses"]):
-      if letter in game["answer_word"]:
-        game["previous_guesses"] += letter
+      if letter.lower() in game["answer_word"]:
+        game["previous_guesses"] += letter.lower()
         for char in game["answer_word"]:
           if char in game["previous_guesses"]:
             working += char
@@ -143,7 +143,7 @@ def guess_letter(game, letter):
         game["masked_word"] = working
       else:
         game["remaining_misses"] -= 1
-        game["previous_guesses"] += letter
+        game["previous_guesses"] += letter.lower()
     
 def user_input_guess(game):
     """
