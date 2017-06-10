@@ -10,46 +10,60 @@ class TestHangman(unittest.TestCase):
     def test_get_random_word(self):
         word_list = ['cat', 'dog', 'mouse']
         self.assertEqual(_get_random_word(word_list) in word_list, True)
+    #pass
 
     def test_mask_word(self):
         self.assertEqual(_mask_word('howdy'), '*****')
+    #pass
 
     def test_guess_valid(self):
         self.assertEqual(_guess_is_valid('a', 'bcd'), True)
+    #pass
 
     def test_guess_invalid_repeat(self):
         self.assertEqual(_guess_is_valid('a', 'abcd'), False)
+    #pass
 
     def test_guess_invalid_nonalpha(self):
         self.assertEqual(_guess_is_valid('1', 'abcd'), False)
-
+    #pass
+    
     def test_guess_invalid_too_long(self):
         self.assertEqual(_guess_is_valid('sf', 'abcd'), False)
+    #pass
 
     def test_guess_invalid_empty(self):
         self.assertEqual(_guess_is_valid('', 'abcd'), False)
+    #pass
 
     def test_check_lose_true(self):
         self.assertEqual(_check_lose(0), True)
+    #pass
 
     def test_check_lose_false(self):
         self.assertEqual(_check_lose(2), False)
+    #pass
 
     def test_check_win_true(self):
         self.assertEqual(_check_win('cat', 'cat'), True)
+    #pass
 
     def test_check_win_false(self):
         self.assertEqual(_check_win('cat', '**t'), False)
+    #pass
 
     def test_check_game_over_true_win(self):
         self.assertEqual(_check_game_over('cat', 'cat', 3), True)
+    #pass
 
     def test_check_game_over_true_lose(self):
         self.assertEqual(_check_game_over('cat', 'c**', 0), True)
+    #pass
 
     def test_check_game_over_false(self):
         self.assertEqual(_check_game_over('cat', '**t', 4), False)
-
+    #pass
+    
     def test_start_game_no_default_value(self):
         word_list = ['happy']
         expected = {
@@ -61,6 +75,7 @@ class TestHangman(unittest.TestCase):
 
         game = start_new_game(word_list)
         self.assertEqual(game, expected)
+    #fail
 
     def test_start_game_default_value(self):
         word_list = ['happy', 'party']
@@ -73,6 +88,7 @@ class TestHangman(unittest.TestCase):
 
         game = start_new_game(word_list, 'santiago')
         self.assertEqual(game, expected)
+    #pass
 
     def test_guess_letter_correct(self):
         word_list = []
